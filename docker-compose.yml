@@ -2,11 +2,9 @@ version: "3.8"
 services:
   db:
     image: postgres:12
-    env_file:
-      - .env
     volumes:
       - ./postgresql/dumps:/code/dumps
       - ./postgresql/data:/var/lib/postgresql/data
     restart: always
     ports:
-      - "${POSTGRES_PORT}:5432"
+      - "5432:5432"
