@@ -114,7 +114,7 @@ def answered_polls_view(request, user_id):
     queryset = Answer.objects.filter(user_id=user_id).select_related('poll', 'question')
     answers = []
     for answer in queryset:
-        answers.append({'poll': answer.poll.pk, 'question': answer.question.pk, 'choice': answer.choice.pk, 'answer': answer.answer_text})
+        answers.append({'poll': PollSerializer(answer.poll), 'answer': AnswerSerializer(answer, many=True)})
     return Response(answers)
 
 
