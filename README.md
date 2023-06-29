@@ -3,6 +3,7 @@
 git clone https://github.com/n1kkj/polls.git
 cd polls
 pip install -r requirements.txt
+docker-compose up -d
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py createsuperuser
