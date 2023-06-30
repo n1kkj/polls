@@ -22,53 +22,15 @@ class AnswerSerializer(serializers.Serializer):
         model = Answer
         fields = '__all__'
 
-    def validate_answers(self, attrs):
-        question_type = Question.objects.get(id=attrs['question'].id).question_type
-        try:
-            if question_type == "one" or question_type == "text":
-                obj = Answer.objects.get(question=attrs['question'].id, poll=attrs['poll'], user_id=attrs['user_id'])
-            elif question_type == "multiple":
-                obj = Answer.objects.get(question=attrs['question'].id, poll=attrs['poll'], user_id=attrs['user_id'], choice=attrs['choice'])
-        except obj.DoesNotExist:
-            return attrs
-        else:
-            raise serializers.ValidationError('Уже ответили(')
-
-    def create(self, validated_data):
-        return Answer.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            setattr(instance, key, value)
-        instance.save()
-        return instance
-
 
 class ChoiceSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     question = serializers.SlugRelatedField(queryset=Question.objects.all(), slug_field='id')
     choice_text = serializers.CharField(max_length=256)
 
-    def validate(self, attrs):
-        try:
-            obj = Choice.objects.get(question=attrs['question'].id, choice_text=attrs['choice_text'])
-        except obj.DoesNotExist:
-            return attrs
-        else:
-            raise serializers.ValidationError('Уже существует(')
-
     class Meta:
         model = Choice
         fields = '__all__'
-
-    def create(self, validated_data):
-        return Choice.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            setattr(instance, key, value)
-        instance.save()
-        return instance
 
 
 class QuestionSerializer(serializers.ModelSerializer):
@@ -88,33 +50,15 @@ class QuestionSerializer(serializers.ModelSerializer):
         model = Question
         fields = '__all__'
 
-    def create(self, validated_data):
-        return Question.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            setattr(instance, key, value)
-        instance.save()
-        return instance
-
 
 class PollSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     poll_title = serializers.CharField(max_length=256)
     poll_description = serializers.CharField(max_length=256)
     start_time = serializers.DateField(read_only=True)
-    end_time = serializers.DateField()
+    end_time = serializers.DateField(allow_null=True)
     questions = QuestionSerializer(many=True, read_only=True)
 
     class Meta:
         model = Poll
         fields = '__all__'
-
-    def create(self, validated_data):
-        return Poll.objects.create(**validated_data)
-
-    def update(self, instance, validated_data):
-        for key, value in validated_data.items():
-            setattr(instance, key, value)
-        instance.save()
-        return instance

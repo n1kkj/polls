@@ -6,7 +6,7 @@ from django.db import models
 
 class Poll(models.Model):
     poll_title = models.CharField(max_length=4096)
-    start_time = models.DateField(default=datetime.datetime.today())
+    start_time = models.DateField(default=datetime.date.today)
     end_time = models.DateField(null=True)
     poll_description = models.CharField(max_length=4096)
 
