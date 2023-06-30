@@ -1,4 +1,6 @@
 import datetime
+
+from django.contrib.auth.models import User
 from django.db import models
 
 
@@ -30,7 +32,7 @@ class Choice(models.Model):
 
 
 class Answer(models.Model):
-    user_id = models.IntegerField(null=True)
+    user = models.ForeignKey(User, related_name='user', on_delete=models.CASCADE, null=True)
     question = models.ForeignKey(Question, related_name='question', on_delete=models.CASCADE)
     poll = models.ForeignKey(Poll, related_name='poll', on_delete=models.CASCADE)
     choice = models.ForeignKey(Choice, related_name='choice', on_delete=models.CASCADE, null=True)
