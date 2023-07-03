@@ -1,5 +1,8 @@
 from rest_framework import serializers
-from .models import Answer, Question, Poll, Choice
+from polls.models.Question import Question
+from polls.models.Poll import Poll
+from polls.models.Choice import Choice
+from polls.models.Answer import Answer
 
 
 class CurrentUserDefault(object):

@@ -5,11 +5,14 @@ from rest_framework.views import APIView
 from .serializers import QuestionSerializer, AnswerSerializer, PollSerializer, ChoiceSerializer
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
-from .models import Question, Poll, Answer, Choice
+from polls.models.Question import Question
+from polls.models.Poll import Poll
+from polls.models.Choice import Choice
+from polls.models.Answer import Answer
 from rest_framework import generics, status
 
 
-class PollsView(generics.ListCreateAPIView):
+class PollsView(generics.ListAPIView):
     queryset = Poll.objects.all()
     serializer_class = PollSerializer
 
@@ -29,8 +32,7 @@ class SingleQuestionView(generics.RetrieveUpdateDestroyAPIView, generics.CreateA
 class SingleChoiceView(generics.RetrieveUpdateDestroyAPIView, generics.CreateAPIView):
     queryset = Choice.objects.all()
     serializer_class = ChoiceSerializer
-    lookup_fields = ['pk']
-    #permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]
 
 
 class SingleAnswerView(generics.CreateAPIView):
@@ -38,13 +40,17 @@ class SingleAnswerView(generics.CreateAPIView):
     serializer_class = AnswerSerializer
 
 
-@api_view(['GET'])
-def answered_polls_view(request, user_id):
-    queryset = Answer.objects.filter(user_id=user_id).select_related('poll', 'question')
-    answers = []
-    for answer in queryset:
-        answers.append({'poll': PollSerializer(answer.poll).data, 'answer': AnswerSerializer(answer).data})
-    return Response(answers)
+class AnsweredPolls(generics.ListAPIView):
+    queryset = Answer.objects.all()
+    serializer_class = AnswerSerializer
+
+    def list(self, request, *args, **kwargs):
+        print(*args, **kwargs)
+        queryset = Answer.objects.filter(user_id=1).select_related('poll', 'question')
+        answers = []
+        for answer in queryset:
+            answers.append({'poll': PollSerializer(answer.poll).data, 'answer': AnswerSerializer(answer).data})
+        return Response(answers)
 
 
 class LoginView(APIView):

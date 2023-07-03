@@ -1,9 +1,9 @@
 from django.db import models
-from polls.models import Poll
+from polls.models.Poll import Poll
 
 
 class Question(models.Model):
-    poll = models.ForeignKey(Poll, related_name='questions', on_delete=models.CASCADE)
+    poll = models.ForeignKey(Poll, related_name='questions', on_delete=models.PROTECT)
     question_text = models.TextField()
     question_type = models.TextField()
 

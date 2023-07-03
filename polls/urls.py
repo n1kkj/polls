@@ -13,6 +13,6 @@ urlpatterns = [
     path('choice/<int:pk>/', views.SingleChoiceView.as_view()),
     path('choice/', views.SingleChoiceView.as_view()),
     path('answer/create/', views.SingleAnswerView.as_view()),
-    path('answered_polls/view/<int:user_id>/', views.answered_polls_view),
+    path('answered_polls/view/<int:user_id>/', views.AnsweredPolls.as_view()),
     path('answer/update/<int:answer_id>/', views.SingleAnswerView.as_view()),
 ]
