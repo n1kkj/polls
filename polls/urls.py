@@ -1,18 +1,21 @@
-from django.urls import path
-
-from polls import views
+from django.urls import path, include
+from polls.views import users_views
+from polls.views import admin_veiws
+from rest_framework.authtoken import views
 
 app_name = 'polls'
 urlpatterns = [
-    path('polls/view/<int:pk>/', views.SinglePollView.as_view()),
-    path('polls/view/', views.PollsView.as_view()),
-    path('polls/view/active/', views.PollsView.as_view()),
-    path('login/', views.LoginView.as_view()),
-    path('question/create/', views.SingleQuestionView.as_view()),
-    path('question/update/<int:question_id>/', views.SingleQuestionView.as_view()),
-    path('choice/<int:pk>/', views.SingleChoiceView.as_view()),
-    path('choice/', views.SingleChoiceView.as_view()),
-    path('answer/create/', views.SingleAnswerView.as_view()),
-    path('answered_polls/view/<int:user_id>/', views.AnsweredPolls.as_view()),
-    path('answer/update/<int:answer_id>/', views.SingleAnswerView.as_view()),
+    # Users
+    path('polls/view/', users_views.PollsView.as_view()),
+    path('polls/view/<int:pk>', users_views.SinglePollView.as_view()),
+    path('answered_polls/view/<int:user_id>/', users_views.AnsweredPolls.as_view()),
+    # Admin
+    path('admin/polls/', admin_veiws.PollsView.as_view()),
+    path('admin/polls/<int:pk>/', admin_veiws.SinglePollView.as_view()),
+    path('admin/questions/', admin_veiws.QuestionsView.as_view()),
+    path('admin/questions/<int:pk>/', admin_veiws.SingleQuestionView.as_view()),
+    path('admin/choices/', admin_veiws.ChoicesView.as_view()),
+    path('admin/choices/<int:pk>/', admin_veiws.SingleChoiceView.as_view()),
+    # Login
+    path('login/', users_views.LoginView.as_view()),
 ]

@@ -1,8 +1,10 @@
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from polls.models.Question import Question
 from polls.models.Poll import Poll
 from polls.models.Choice import Choice
 from polls.models.Answer import Answer
+from polls.models.QuestionType import QuestionType
 
 
 class CurrentUserDefault(object):
@@ -30,6 +32,7 @@ class ChoiceSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     question = serializers.SlugRelatedField(queryset=Question.objects.all(), slug_field='id')
     choice_text = serializers.CharField(max_length=256)
+    answers = AnswerSerializer(many=True, read_only=True)
 
     class Meta:
         model = Choice
@@ -39,15 +42,9 @@ class ChoiceSerializer(serializers.Serializer):
 class QuestionSerializer(serializers.ModelSerializer):
     id = serializers.IntegerField(read_only=True)
     poll = serializers.SlugRelatedField(queryset=Poll.objects.all(), slug_field='id')
-    question_type = serializers.CharField(max_length=256)
+    question_type = serializers.SlugRelatedField(queryset=QuestionType.objects.all(), slug_field='type')
     question_text = serializers.CharField(max_length=256)
     choices = ChoiceSerializer(many=True, read_only=True)
-
-    def validate(self, attrs):
-        question_type = attrs['question_type']
-        if question_type == 'one' or question_type == 'text' or question_type == 'multiple':
-            return attrs
-        raise serializers.ValidationError('Неправильный тип вопроса')
 
     class Meta:
         model = Question
@@ -65,3 +62,5 @@ class PollSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poll
         fields = '__all__'
+
+
