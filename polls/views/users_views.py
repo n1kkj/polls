@@ -13,26 +13,21 @@ class LoginView(views.APIView):
 
     def post(self, request, format=None):
         data = request.data
-
         try:
             username = data['username']
             password = data['password']
         except:
             return Response(status=status.HTTP_400_BAD_REQUEST)
-
         try:
             user = User.objects.get(username=username, password=password)
         except:
             return Response(status=status.HTTP_401_UNAUTHORIZED)
-
         try:
             user_token = user.auth_token.key
         except:
             user_token = Token.objects.create(user=user)
-
         data = {'token': user_token}
-        print(Response(data=data, status=status.HTTP_200_OK))
-        return Response(data=data, status=status.HTTP_200_OK)
+        return Response(data=data, status=status.HTTP_200_OK, headers={"Token ": user_token})
 
 
 class PollsView(generics.ListAPIView):

@@ -1,17 +1,21 @@
-from rest_framework import generics
+from django.contrib.auth.models import User
+from rest_framework import generics, status
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from polls.models.Choice import Choice
 from polls.models.Poll import Poll
 from polls.models.Question import Question
-from polls.serializers import AnswerSerializer, PollSerializer, QuestionSerializer, ChoiceSerializer
+from polls.serializers import PollSerializer, QuestionSerializer, ChoiceSerializer
 
 
 class PollsView(generics.ListCreateAPIView):
     serializer_class = PollSerializer
     queryset = Poll.objects.all()
-    #permission_classes = [IsAdminUser]
+    authentication_classes = (SessionAuthentication,)
+    permission_classes = [IsAdminUser]
 
 
 class SinglePollView(generics.RetrieveUpdateDestroyAPIView):

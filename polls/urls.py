@@ -1,4 +1,6 @@
 from django.urls import path, include
+from rest_framework.authtoken.views import obtain_auth_token
+
 from polls.views import users_views
 from polls.views import admin_veiws
 from rest_framework.authtoken import views
@@ -17,5 +19,5 @@ urlpatterns = [
     path('admin/choices/', admin_veiws.ChoicesView.as_view()),
     path('admin/choices/<int:pk>/', admin_veiws.SingleChoiceView.as_view()),
     # Login
-    path('login/', users_views.LoginView.as_view()),
+    path('token/', obtain_auth_token),
 ]
