@@ -1,4 +1,8 @@
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+
+from polls.models.Answer import Answer
+from polls.serializers.AnswerSerializer import AnswerSerializer
 from polls.serializers.PollSerializer import PollSerializer
 from polls.models.Poll import Poll
 from rest_framework import generics
@@ -15,4 +19,12 @@ class UserAnsweredPolls(generics.ListAPIView):
         return queryset
 
     def list(self, request, *args, **kwargs):
-        pass
+        answers = []
+        for poll in self.queryset.all():
+            serializer = AnswerSerializer(data=Answer.objects.filter(question__poll=poll), many=True)
+            print(serializer)
+            if serializer.is_valid():
+                answers.append(serializer.data)
+        print(answers)
+        return Response(data={"answers": answers})
+
