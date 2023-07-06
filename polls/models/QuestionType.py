@@ -2,7 +2,7 @@ from django.db import models
 
 
 class QuestionType(models.Model):
-    type = models.TextField()
+    q_type = models.CharField()
 
     def __str__(self):
-        return self.type
+        return self.q_type

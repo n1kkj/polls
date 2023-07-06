@@ -3,6 +3,7 @@ from django.test import TestCase
 from polls.models.Poll import Poll
 from polls.models.Question import Question
 from polls.models.QuestionType import QuestionType
+from django.urls import reverse
 
 
 class UsersViewTests(TestCase):
@@ -38,3 +39,6 @@ class ModelsTests(TestCase):
         self.assertTrue(isinstance(question, Question))
         self.assertEqual(question.__str__(), question.question_text)
 
+
+class TestApi(TestCase):
+    pass
