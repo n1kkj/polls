@@ -1,15 +1,15 @@
 from django.urls import path
 from polls.views.LoginView import LoginView
-from polls.views.admin_views.PollsView import PollsView
-from polls.views.admin_views.SinglePollView import SinglePollView
-from polls.views.admin_views.QuestionsView import QuestionsView
-from polls.views.admin_views.SingleQuestionView import SingleQuestionView
-from polls.views.admin_views.ChoicesView import ChoicesView
-from polls.views.admin_views.SingleChoiceView import SingleChoiceView
-from polls.views.user_views.UserPollsView import UserPollsView
-from polls.views.user_views.UserAnsweredPolls import UserAnsweredPolls
-from polls.views.user_views.UserSingleAnswerView import UserSingleAnswerView
-from polls.views.user_views.UserSinglePollView import UserSinglePollView
+from polls.views.admin_views.polls_view import PollsView
+from polls.views.admin_views.single_poll_view import SinglePollView
+from polls.views.admin_views.questions_view import QuestionsView
+from polls.views.admin_views.single_question_view import SingleQuestionView
+from polls.views.admin_views.choices_view import ChoicesView
+from polls.views.admin_views.single_choice_view import SingleChoiceView
+from polls.views.user_views.user_polls_view import UserPollsView
+from polls.views.user_views.user_answered_polls import UserAnsweredPolls
+from polls.views.user_views.user_single_answer_view import UserSingleAnswerView
+from polls.views.user_views.user_single_poll_view import UserSinglePollView
 
 app_name = 'polls'
 urlpatterns = [

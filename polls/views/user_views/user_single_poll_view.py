@@ -1,6 +1,6 @@
-from polls.serializers.PollSerializer import PollSerializer
+from polls.serializers.poll_serializer import PollSerializer
 from rest_framework.response import Response
-from polls.models.Poll import Poll
+from polls.models.poll import Poll
 from rest_framework import views
 
 

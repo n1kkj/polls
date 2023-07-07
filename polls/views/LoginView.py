@@ -1,4 +1,4 @@
-from polls.serializers.LoginSerializer import LoginSerializer
+from polls.serializers.login_serializer import LoginSerializer
 from rest_framework.response import Response
 from rest_framework import views, status
 

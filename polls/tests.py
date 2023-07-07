@@ -1,8 +1,8 @@
 from django.test import TestCase
 
-from polls.models.Poll import Poll
-from polls.models.Question import Question
-from polls.models.QuestionType import QuestionType
+from polls.models.poll import Poll
+from polls.models.question import Question
+from polls.models.question_type import QuestionType
 from django.urls import reverse
 
 

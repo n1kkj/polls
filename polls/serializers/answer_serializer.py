@@ -1,8 +1,7 @@
 from rest_framework import serializers
-from polls.models.Question import Question
-from polls.models.Poll import Poll
-from polls.models.Choice import Choice
-from polls.models.Answer import Answer
+from polls.models.question import Question
+from polls.models.choice import Choice
+from polls.models.answer import Answer
 
 
 class AnswerSerializer(serializers.Serializer):

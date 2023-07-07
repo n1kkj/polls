@@ -1,5 +1,5 @@
-from polls.serializers.AnswerSerializer import AnswerSerializer
-from polls.models.Answer import Answer
+from polls.serializers.answer_serializer import AnswerSerializer
+from polls.models.answer import Answer
 from rest_framework import generics
 
 
