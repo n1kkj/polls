@@ -4,7 +4,6 @@ from polls.serializers.QuestionSerializer import QuestionSerializer
 
 
 class PollSerializer(serializers.ModelSerializer):
-    id = serializers.IntegerField(read_only=True)
     poll_title = serializers.CharField(max_length=256)
     poll_description = serializers.CharField(max_length=256)
     start_time = serializers.DateField(read_only=True)

@@ -6,3 +6,4 @@ from rest_framework import generics
 class UserSingleAnswerView(generics.CreateAPIView):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
+
