@@ -11,6 +11,7 @@ class QuestionSerializer(serializers.ModelSerializer):
     question_type = serializers.SlugRelatedField(queryset=QuestionType.objects.all(), slug_field='q_type')
     question_text = serializers.CharField(max_length=256)
     choices = ChoiceSerializer(many=True, read_only=True)
+    answers = AnswerSerializer(many=True, read_only=True)
 
     class Meta:
         model = Question

@@ -5,7 +5,7 @@ from polls.models.question import Question
 
 
 class Answer(models.Model):
-    question = models.ForeignKey(Question, related_name='question', on_delete=models.PROTECT)
+    question = models.ForeignKey(Question, related_name='answers', on_delete=models.PROTECT)
     user = models.ForeignKey(User, related_name='user', on_delete=models.PROTECT, null=True)
     choice = models.ForeignKey(Choice, related_name='choice', on_delete=models.PROTECT, null=True)
     answer_text = models.CharField()
