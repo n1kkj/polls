@@ -7,7 +7,8 @@ from polls.models.answer import Answer
 class AnswerSerializer(serializers.Serializer):
     user = serializers.CurrentUserDefault()
     question = serializers.SlugRelatedField(queryset=Question.objects.all(), slug_field='id')
-    choice = serializers.SlugRelatedField(queryset=Choice.objects.all(), slug_field='id', allow_null=True)
+    choice = serializers.SlugRelatedField(queryset=Choice.objects.all(),
+                                          slug_field='id', allow_null=True)
     answer_text = serializers.CharField(max_length=256, required=True)
 
     class Meta:

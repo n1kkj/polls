@@ -1,5 +1,5 @@
 from django.urls import path
-from polls.views.LoginView import LoginView
+from polls.views.login_view import LoginView
 from polls.views.admin_views.polls_view import PollsView
 from polls.views.admin_views.single_poll_view import SinglePollView
 from polls.views.admin_views.questions_view import QuestionsView
